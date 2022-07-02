@@ -13,6 +13,11 @@ app.use(bodyParser.urlencoded({extended: true}))
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
+// 🦄🦄 terminal 명령어 정리 👉 codingapple-Node.js.MongoDB-2022-0629-classnote폴더...server.js
+
+
+
+
 
 // app.listen(3000, function(){
 //     console.log('c30 listening on 3000')
@@ -84,8 +89,9 @@ app.get('/write',(req요청,res응답)=>{       //2, 2-1)
 
 
 
-// 🦄🦄c30-2. mongo db 예제문 복붙 - 에러는 안나는데, post에 데이터 추가 안됨
-// https://www.w3schools.com/nodejs/nodejs_mongodb_createcollection.asp
+// 🦄🦄c30-2. mongo db 예제문 복붙  -- mongodb.com - cluster - connect 예제문 있음
+//  - 에러는 안나는데, post에 데이터 추가 안됨
+
 
 // 🌊실습코드 시작 ------ 다음 수업에 중첩되서 일단 코멘트 처리
 
@@ -132,3 +138,39 @@ client.connect(err => {
 });
 
 // 🌊 실습코드 끝------
+
+
+
+
+
+
+
+
+
+
+
+
+//   //🦄🦄c32 HTML에 DB데이터 넣는 법 1, EJS 파일 만들기 
+//   console.log('🦄🦄🦄🦄c13')
+//   // 👉views/list.ejs
+
+//   /*2) 숙제해설 :
+//   -2) 누군가 /add 경로로 POST 요청을 하면, 폼에 입력된 자료를 2개가 서버로 도착합니다.
+
+//   -4) 이 때 자료 2개를 post라는 이름의 collection에 저장해보도록 합시다.
+
+//   { 제목 : ‘어쩌구’, 날짜 : ‘어쩌구’ } 이런 Object 자료형으로 저장하시면 되겠습니다.
+
+//   참고 : c9 .. post  */
+
+//     // app.post('/add', function(요청, 응답){    //2-2)
+//     //   응답.send('전송완료13');
+//     //   console.log(요청.body.ig_title);
+//     //   console.log(요청.body.ig_data);
+      
+//     //   //2-4)
+//     //   db.collection('post').insertOne( { 제목 : 요청.body.ig_title, 날짜 : 요청.body.ig_data } , function(){    
+//     //     console.log('저장완료13-2');
+//     //   });
+//     // });
+
