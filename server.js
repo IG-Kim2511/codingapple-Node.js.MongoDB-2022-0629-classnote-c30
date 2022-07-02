@@ -9,7 +9,8 @@ const app = express()
 const bodyParser= require('body-parser')
 app.use(bodyParser.urlencoded({extended: true})) 
 
-
+// c30)
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
 
@@ -31,7 +32,10 @@ app.get('/write',(req요청,res응답)=>{       //2, 2-1)
 
 
 
-// // 🦄🦄c30 Database에 자료 저장하기, client.db('작명').collection('작명').insertOne(자료오브젝트, 콜백함수)
+// 🦄🦄c30 Database에 자료 저장하기, client.db('작명').collection('작명').insertOne(자료오브젝트, 콜백함수)
+// (인증코드 에러남. 자료추가도 안됨)
+
+
 // console.log('🦄🦄🦄🦄c30')
 // /* 
 //   1) mongoDB 사이트 
@@ -44,7 +48,7 @@ app.get('/write',(req요청,res응답)=>{       //2, 2-1)
 
 // // 🌊실습코드 시작 ------ 다음 수업에 중첩되서 일단 코멘트 처리
 
-// const MongoClient = require('mongodb').MongoClient;
+//👉상단배치 const MongoClient = require('mongodb').MongoClient;
 
 // var uri = "mongodb+srv://iikim2511:ingyum123@cluster0.o0asn.mongodb.net/todoapp?retryWrites=true&w=majority";
 
@@ -80,18 +84,19 @@ app.get('/write',(req요청,res응답)=>{       //2, 2-1)
 
 
 
-// 🍀 mongo db 예제문 복붙 - 에러는 안나는데, post에 데이터 추가 안됨
+// 🦄🦄c30-2. mongo db 예제문 복붙 - 에러는 안나는데, post에 데이터 추가 안됨
 // https://www.w3schools.com/nodejs/nodejs_mongodb_createcollection.asp
 
 // 🌊실습코드 시작 ------ 다음 수업에 중첩되서 일단 코멘트 처리
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+//👉상단배치 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 var uri = "mongodb+srv://iikim2511:ingyum123@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
 
+// var client
 var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-
+// connect
 client.connect(err => {
 
   // client.db("todo").collection("post");
