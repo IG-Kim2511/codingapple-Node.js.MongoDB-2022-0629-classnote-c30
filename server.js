@@ -113,7 +113,7 @@ var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: t
 client.connect(err => {
 
   // client.db("todo").collection("post");
-  var collection = client.db("ig-database").collection("ig-collection");
+  var collection = client.db("ig_database").collection("ig_collection");
 
   // insertOne
   collection.insertOne({ name: "Company Inc", address: "Highway 37" }, function (에러, 결과) {
@@ -181,15 +181,15 @@ client.connect(err => {
         (정확히 말하면 결과라는 데이터를 ig_posts 라는 이름으로 ejs 파일에 보내주세요~ 입니다)
     */
   
-    app.get('/list',function(res,req){      //13-4)
+    app.get('/list',function(res,req){      //34-4)
 
         // // .find().toArray() 
-        collection.find().toArray(function(에러, 결과){   //14-2)
+        collection.find().toArray(function(에러, 결과){   //36-2)
     
         console.log(결과)
     
-        // list.ejs
-        req.render('list.ejs', { ig_posts : res })     //13-4)  14-4)
+        //👉list.ejs , ig_posts : res
+        req.render('list.ejs', { ig_posts : res })     //34-4)  36-4)
         })
     });
 
