@@ -164,7 +164,7 @@ MongoClient.connect(uri, function(에러, p_client){
       
           console.log(결과)
       
-          //👉list.ejs , ig_posts : 결과
+          // render() , list.ejs , ig_posts : 결과
           req.render('list.ejs', { ig_posts : 결과 })     //34-4)  36-4)
           })
       });
