@@ -99,7 +99,6 @@ app.get('/write',(req요청,res응답)=>{       //2, 2-1)
 // 🦄🦄c30-2. mongo db 예제문 복붙  -- mongodb.com - cluster - connect 예제문 있음
 //  - 에러는 안나는데, post에 데이터 추가 안됨
 
-
 // 🌊실습코드 시작 ------ 다음 수업에 중첩되서 일단 코멘트 처리
 
 //👉상단배치 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -110,7 +109,12 @@ var uri = "mongodb+srv://iikim2511:ingyum123@cluster0.qqllo.mongodb.net/?retryWr
 var client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 // connect
-client.connect(err => {
+client.connect(p_err => {
+
+  // error check
+    if (p_err) {
+      return console.log('error 30-2.');
+    }
 
   // client.db("todo").collection("post");
   var collection = client.db("ig_database").collection("ig_collection");
