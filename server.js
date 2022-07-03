@@ -135,6 +135,19 @@ MongoClient.connect(uri, function(에러, p_client){
 
       //🦄🦄c34 HTML에 DB데이터 넣는 법 2 (DB데이터 읽기), .find(.).toArray(에러,결과)=>{}), { ig_posts : 결과 }
       // 👉list.ejs
+
+      /* list.ejs 파일안 코딩
+            <!-- 🦄c34 반복문     <%  %>   
+                for (let i = 0; i < array.length; i++) {
+                  const element = array[i];              
+                }        
+            -->
+            
+            <%    for (let i = 0; i < ig_posts.length; i++) {   %>  
+              <h4>할일 제목 : <%= ig_posts[i].제목 %></h4>
+              <p>할일 마감날짜 : <%= ig_posts[i].날짜 %></p>          
+            <%  }  %>        
+      */
       
       /*
           2).find().toArray() 라고 적으시면 collection(‘post’)에 있는 모든 데이터를 Array 자료형으로 가져옵니다. 
@@ -158,7 +171,6 @@ MongoClient.connect(uri, function(에러, p_client){
 })
 
 // // 🌊 실습코드 끝------
-
 
 
 

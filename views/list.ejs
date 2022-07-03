@@ -56,15 +56,34 @@
 
     <!--  -->
     <section>
-        <div>🌊c32. 서버에서 가져온 할일 리스트</div>
+        <h2>🌊c32. 서버에서 가져온 할일 리스트</h2>
 
         <!-- 🦄c34 -->
         <h4>할일 제목 : <%= ig_posts %></h4>
         <p>할일 마감날짜 : <%= ig_posts %></p>
         
         <h4>할일 제목 : <%= ig_posts[2].제목 %></h4>
-        <p>할일 마감날짜 : <%= ig_posts[3].제목 %></p>
+        <p>할일 마감날짜 : <%= ig_posts[2].날짜 %></p>
 
+
+
+        <br><br><br><br><br><br>
+        <h2>🌊c34 반복문</h2>
+        <!-- 🦄c34 반복문     <%  %>   
+            for (let i = 0; i < array.length; i++) {
+              const element = array[i];              
+            }        
+        -->
+        
+        <%    for (let i = 0; i < ig_posts.length; i++) {   %>  
+          <h4>할일 제목 : <%= ig_posts[i].제목 %></h4>
+          <p>할일 마감날짜 : <%= ig_posts[i].날짜 %></p>          
+        <%  }  %>  
+
+
+    
+  
+        <%  %>
 
 
 
