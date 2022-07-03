@@ -10,7 +10,7 @@ const bodyParser= require('body-parser')
 app.use(bodyParser.urlencoded({extended: true})) 
 
 // c30)
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
 
 // c32) 
 app.set('view engine', 'ejs');
@@ -48,64 +48,63 @@ app.get('/write',(req요청,res응답)=>{       //2, 2-1)
 // (인증코드 에러남. 자료추가도 안됨)
 
 
-// console.log('🦄🦄🦄🦄c30')
-// /* 
-//   1) mongoDB 사이트 
-//   clusters ->collection -> database는 하나의 폴더, collection은 하나의 엑셀파일이라고 생각하면 딱 맞습니다. 
-
-//   4) var db변수화 사용해서 코딩  
-
-//   6)  _id 부여하기   
-// */
+console.log('🦄🦄🦄🦄c30')
+/* 
+  1) mongoDB 사이트 
+  clusters ->collection -> database는 하나의 폴더, collection은 하나의 엑셀파일이라고 생각하면 딱 맞습니다. 
+*/
 
 // // 🌊실습코드 시작 ------ 다음 수업에 중첩되서 일단 코멘트 처리
 
 //👉상단배치 const MongoClient = require('mongodb').MongoClient;
 
-// iikim2522:dRT2GRSjF5PoHsam   : 비밀번호 랜덤생성했을때 접속성공함
+// iikim2522:dRT2GRSjF5PoHsam   : 비밀번호 랜덤생성했을때 접속성공함 😎
 
 var uri = "mongodb+srv://iikim2522:dRT2GRSjF5PoHsam@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
 
+// var db
 var db;   //c30-4)
 
-MongoClient.connect(uri, function(에러,  p_client){ //8-2)
+MongoClient.connect(uri, function(에러, p_client){ 
   
     if (에러) {
       return console.log(에러);
     }
 
-    console.log('데이터베이스에 연결되었습니다. : ');
+    console.log('c30 데이터베이스 연결 success');
 
-  // c30-2)
-  // database.... 'todoapp' 에 연결
+  // database설정 :  db() : .... 'ig_database' 에 연결
   db = p_client.db('ig_database');
 
-  // collecton....'post' 에 연결
+  // collecton설정 : ....'ig_collection' 에 연결
   // .insertOne함수 : .insertOne(저장할 데이터, 그 이후 실행할 콜백함수)  👉 mongoDB에 가면 저장된 데이터 확인됨
 
   db.collection('ig_collection').insertOne({이름:'John2', _id:200}, function (에러, 결과) {
-    console.log('c30 finished')    
+    console.log('c30 insertOne success')    
   });
 
 
 
-  //     // 🌊실습코드 시작 ------------------------------------
+  //   // 🦄🦄c32 HTML에 DB데이터 넣는 법 1, EJS 파일 만들기 
+  //     /* 🦄 누군가 /add 경로로 POST 요청을 하면, 폼에 입력된 자료를 2개가 서버로 도착합니다.
+  //         이 때 자료 2개를 ~~라는 이름의 collection에 저장하기 */
+     console.log('🦄🦄🦄🦄c32')
+    
 
-    //  post(), send(), insertOne()
-    app.post('/add', function(요청, 응답){    //2-2)
-      응답.send('전송완료 c32.');
-      console.log(요청.body.ig_title);
-      console.log(요청.body.ig_data);
+    //  post(), send(), insertOne() , 요청.body.ig_title
+    app.post('/add', function(res요청, res응답){   
+      res응답.send('c32. post() 전송완료');
+      console.log(res요청.body.ig_title);
+      console.log(res요청.body.ig_data);
       
-      // 2-4) insertOne
-      db.collection('ig_collection').insertOne( { 제목 : 요청.body.ig_title, 날짜 : 요청.body.ig_data } , function(){    
+      // 2-4) insertOne()  , res요청.body.ig_title
+      db.collection('ig_collection').insertOne( { 제목 : res요청.body.ig_title, 날짜 : res요청.body.ig_data } , function(){    
         console.log('저장완료 c32-2');
       });
     });    
-//     // 🌊 실습코드 끝----------------------------------------------------------
 
 
-  // // c30-4) 서버띄우는 코드 여기로 옮기기        , 8-4)
+  // c30-4) 서버띄우는 코드 여기로 옮기기      
   app.listen(3000, function(){
     console.log('c30 listening on 3000')
   });
@@ -159,7 +158,7 @@ MongoClient.connect(uri, function(에러,  p_client){ //8-2)
 
 
 //   // 🦄🦄c32 HTML에 DB데이터 넣는 법 1, EJS 파일 만들기 
-//     /* 🦄 누군가 /add 경로로 POST 요청을 하면, 폼에 입력된 자료를 2개가 서버로 도착합니다.
+//     /* 🦄 누군가 /add 경로로 POST res요청을 하면, 폼에 입력된 자료를 2개가 서버로 도착합니다.
 //         이 때 자료 2개를 post라는 이름의 collection에 저장하기 */
 //     console.log('🦄🦄🦄🦄c32')
     
@@ -168,13 +167,13 @@ MongoClient.connect(uri, function(에러,  p_client){ //8-2)
 //     // 🌊실습코드 시작 ------------------------------------
 
 //     //  post(), send(), insertOne()
-//     app.post('/add', function(요청, 응답){    //2-2)
-//       응답.send('전송완료 c32.');
-//       console.log(요청.body.ig_title);
-//       console.log(요청.body.ig_data);
+//     app.post('/add', function(res요청, res응답){    //2-2)
+//       res응답.send('전송완료 c32.');
+//       console.log(res요청.body.ig_title);
+//       console.log(res요청.body.ig_data);
       
 //       // 2-4) insertOne
-//       collection.insertOne( { 제목 : 요청.body.ig_title, 날짜 : 요청.body.ig_data } , function(){    
+//       collection.insertOne( { 제목 : res요청.body.ig_title, 날짜 : res요청.body.ig_data } , function(){    
 //         console.log('저장완료 c32-2');
 //       });
 //     });    
