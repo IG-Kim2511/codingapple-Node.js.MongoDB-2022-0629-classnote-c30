@@ -108,9 +108,78 @@ MongoClient.connect(uri, function(에러, p_client){
   app.listen(3000, function(){
     console.log('c30 listening on 3000')
   });
+
+
+
+
+     // 🦄 ejs문법 
+     // 👉views/list.ejs 생성
+     //    npm install ejs
+
+     //👉상단배치 app.set('view engine', 'ejs');
+
+     /* 4) list로 get요청...접속하면, 실제 DB에 저장된 데이터 적용된html보여줌 
+
+      -2) http://localhost:8080/list 주소창 접속*/
+        
+      // 🌊코드 시작 ---------------- 다음 수업에 중첩되서 일단 코멘트 처리
+      // 👉 c34 코드로 옮김
+
+      // // list.ejs
+      // app.get('/list',function (res,req) {
+      //     req.render('list.ejs');        
+      // })
+
+      // 🌊코드 끝----------------------------------------------------------
+
+
+      //🦄🦄c34 HTML에 DB데이터 넣는 법 2 (DB데이터 읽기), .find(.).toArray(에러,결과)=>{}), { ig_posts : 결과 }
+      // 👉list.ejs
+      
+      /*
+          2).find().toArray() 라고 적으시면 collection(‘post’)에 있는 모든 데이터를 Array 자료형으로 가져옵니다. 
+
+          4)list.ejs 파일을 렌더링함과 동시에 {ig_posts: 결과} 라는 데이터를 함께 보내줄 수 있습니다. 
+
+          (정확히 말하면 결과라는 데이터를 ig_posts 라는 이름으로 ejs 파일에 보내주세요~ 입니다)
+      */
+    
+      app.get('/list',function(res,req){      //34-4)
+
+          // // .find().toArray() 
+          db.collection('ig_collection').find().toArray(function(에러, 결과){   //34-2)
+      
+          console.log(결과)
+      
+          //👉list.ejs , ig_posts : 결과
+          req.render('list.ejs', { ig_posts : 결과 })     //34-4)  36-4)
+          })
+      });
+
+
 })
 
 // // 🌊 실습코드 끝------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
