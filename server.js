@@ -217,7 +217,7 @@ MongoClient.connect(uri, function(에러, p_client){
               <h4>할일 제목 : <%= ig_posts[i].제목 %></h4>
               <p>할일 마감날짜 : <%= ig_posts[i].날짜 %></p>          
             <%  }  %>        
-      */
+      */  
       
       /*
           2).find().toArray() 라고 적으시면 collection(‘post’)에 있는 모든 데이터를 Array 자료형으로 가져옵니다. 
