@@ -121,23 +121,29 @@ MongoClient.connect(uri, function(에러, p_client){
 
     //  post()를 통한 insetOne()실행, send(), 요청.body.ig_title
     app.post('/add', function(req요청, res응답){   
+
       res응답.send('c32. post() 전송완료');
+
       console.log('req요청.body.ig_title:'+req요청.body.ig_title);
       console.log('req요청.body.ig_data:'+req요청.body.ig_data);
 
       // 32)
-      db.collection('hello').insertOne( { 제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data } , function(){    
-        console.log('저장완료 c32-2');
-      });  
+      // db.collection('ig_collection').insertOne( { 제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data } , function(){    
+      //   console.log('저장완료 c32-2');
+      // });  
 
       // 38) 
       // .collection('ig_counter'), findOne
-      db.collection('ig_counter').findOne({name: '게시물갯수'},function(p_err,p_db결과) {
+      db.collection('ig_counter').findOne({name: '게시물갯수'}, function(p_err,p_db결과) {
+
+        if (p_err) { return console.log('error')    }
+
         console.log(`p_db결과.totalPost:`+p_db결과.totalPost)
         console.log(`p_db결과.name:`+p_db결과.name)
         
+        
         //  _id:총게시물갯수 +1 
-        db.collection('ig_collection').insertOne({ _id: p_db결과.totalPost +1 ,제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data}, function(){
+        db.collection('ig_collection').insertOne({ _id:  p_db결과.totalPost ,제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data}, function(){
           console.log('저장완료 c38-2')          
           
           // 🦄🦄 선생님 40 게시물마다 id넣기2 - id에 +1하기, updateOne(.), mongodb operator: inc
@@ -158,22 +164,15 @@ MongoClient.connect(uri, function(에러, p_client){
             https://www.mongodb.com/docs/manual/reference/operator/update/
           */
 
-        // updateOne
-        db.collection('ig_counter').updateOne({name:'게시글갯수'},{$inc :{totalPost:1}},function(p_err,p_db) { 
-          if (p_err) { return console.log('err')  }          
+          // updateOne, $inc
+          db.collection('ig_counter').updateOne({name:'게시물갯수'},{$inc :{totalPost:1}},function(p_err,p_db) { 
+            if (p_err) { return console.log('err')  }          
 
+            
+
+          })
         })
-
-
-
-        } )
       })
-      
-
-      
-
-
-
     });   
 
 
@@ -235,20 +234,14 @@ MongoClient.connect(uri, function(에러, p_client){
           // // .find().toArray() 
           db.collection('ig_collection').find().toArray(function(p_err, p_db결과){   //34-2)
       
-          console.log(p_db결과)
-      
-          // render() , list.ejs , ig_posts : p_db결과
-          req.render('list.ejs', { ig_posts : p_db결과 })     //34-4)  36-4)
+            console.log(p_db결과)
+        
+            // render() , list.ejs , ig_posts : p_db결과
+            req.render('list.ejs', { ig_posts : p_db결과 })     //34-4)  36-4)
           })
       });
 })
 
 // // 🌊 실습코드 끝------
-
-
-
-
-
-
 
 
