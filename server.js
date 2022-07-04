@@ -48,7 +48,7 @@ app.get('/write',(req요청,res응답)=>{       //2, 2-1)
 // (인증코드 에러남. 자료추가도 안됨)
 
 
-console.log('🦄🦄🦄🦄c30')
+console.log('🦄🦄c30')
 /* 
   1) mongoDB 사이트 
   clusters ->collection -> database는 하나의 폴더, collection은 하나의 엑셀파일이라고 생각하면 딱 맞습니다. 
@@ -58,9 +58,10 @@ console.log('🦄🦄🦄🦄c30')
 
 //👉상단배치 const MongoClient = require('mongodb').MongoClient;
 
-// iikim2522:dRT2GRSjF5PoHsam   : 비밀번호 랜덤생성했을때 접속성공함 😎
-
-var uri = "mongodb+srv://iikim2522:dRT2GRSjF5PoHsam@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
+// 😎uri : iikim2522:dRT2GRSjF5PoHsam : 비밀번호 랜덤생성했을때 접속성공함 ,
+// https://cloud.mongodb.com/v2/62be0862fda87151be53eb94#setup/access
+// 비밀파일에 숨겨야함. 해킹될수있음, 연습때는 연습끝날때마다 비밀번호 새로 생성
+var uri = "mongodb+srv://iikim2522:Fv7kJuN3OQ4no8uO@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
 
 // var db
 var db;   //c30-4)
@@ -85,23 +86,61 @@ MongoClient.connect(uri, function(에러, p_client){
 
 
 
-  //   // 🦄🦄c32 HTML에 DB데이터 넣는 법 1, EJS 파일 만들기 
+  // 🦄🦄c32 HTML에 DB데이터 넣는 법 1, EJS 파일 만들기 
   //     /* 🦄 누군가 /add 경로로 POST 요청을 하면, 폼에 입력된 자료를 2개가 서버로 도착합니다.
   //         이 때 자료 2개를 ~~라는 이름의 collection에 저장하기 */
-     console.log('🦄🦄🦄🦄c32')
+
+
+  // 🦄🦄c38 게시물마다 id넣기, auto increment문법, findOne(.), insertOne(.)
+  /*    
+    2) ex)그냥 단순하게 "id:총게시물갯수+1"하면 2번째 자료(id:2)를 지우고, 새로운 데이터를 넣었을때 id:2가 되는 상황이 발생함
+    이렇게 되면 안됨, 
+    지우고 새로운거 넣어도 id:2는 공백이 되어야 함
+    
+    4) find() : 모든 데이터 찾고싶을때
+    findOne() : 원하는 데이터 1개만 찾고싶을때  
+
+    🍄6) /add로 post요청하면, 
+    DB의 총게시물갯수 데이터 가져오셉
+    
+    🍄8) 새로운 collecton 만듬
+    -> 여기에 자료갯수를 저장해서 꺼냈는 방식을 사용할 예정
+    default로 데이터 만들어두고, 게시물 만들어질때마다 totalPost숫자 늘리는 방식을 사용할 예정
+  */
+
+     console.log('🦄🦄c32')
+     console.log('🦄🦄c38')
     
 
     //  post()를 통한 insetOne()실행, send(), 요청.body.ig_title
-    app.post('/add', function(res요청, res응답){   
+    app.post('/add', function(req요청, res응답){   
       res응답.send('c32. post() 전송완료');
-      console.log(res요청.body.ig_title);
-      console.log(res요청.body.ig_data);
+      console.log(req요청.body.ig_title);
+      console.log(req요청.body.ig_data);
+
+      // 32)
+      // db.collection('ig_collection').insertOne( { 제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data } , function(){    
+      //   console.log('저장완료 c32-2');
+      // });  
+
+      // 38) 
+      // .collection('ig_counter'), findOne
+      db.collection('ig_counter').findOne({name: '게시물갯수'},function(p_err,p_db결과) {
+        console.log(`p_db결과.totalPost:`+p_db결과.totalPost)
+        console.log(`p_db결과.name:`+p_db결과.name)
+
+        //  _id:총게시물갯수 +1 
+        db.collection('ig_collection').insertOne({ _id: p_db결과.totalPost +1 ,제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data}, function(){
+          console.log('저장완료 c38-2')          
+        } )
+      })
       
-      // 2-4) insertOne()  , 제목 : res요청.body.ig_title
-      db.collection('ig_collection').insertOne( { 제목 : res요청.body.ig_title, 날짜 : res요청.body.ig_data } , function(){    
-        console.log('저장완료 c32-2');
-      });
-    });    
+
+      // ???? - 40강에서 코드 추가해야 완성됨....................🍚
+
+
+
+    });   
 
 
   // c30-4) 서버띄우는 코드 여기로 옮기기      
@@ -112,7 +151,7 @@ MongoClient.connect(uri, function(에러, p_client){
 
 
 
-     // 🦄 ejs문법 
+     // 🦄32-2. ejs문법 
      // 👉views/list.ejs 생성
      //    npm install ejs
 
@@ -189,28 +228,14 @@ MongoClient.connect(uri, function(에러, p_client){
 // 여기서부터는 그냥 녹화하면서 대충 , 선생님이  정리한 내용 복붙함
 
 /*
-🦄🦄 선생님 16 게시물마다 번호를 달아 저장해야합니다. findOne(.),insertOne(.)
-🦄🦄 선생님 17 게시물마다 번호 달기2, updateOne(.), inc 연산자
+🦄🦄 선생님 38 게시물마다 번호를 달아 저장해야합니다. findOne(.),insertOne(.)
+🦄🦄 선생님 40 게시물마다 번호 달기2, updateOne(.), inc 연산자
  */
-console.log('🦄🦄🦄🦄c16')
+console.log('🦄🦄🦄🦄c38')
 
 
-// app.post('/add', function (요청, 응답) {
-  
-//   db.collection('counter').findOne({name : '게시물갯수'}, function(에러, 결과){       // c16
 
-//     // var 총게시물갯수 = 결과.totalPost             // c16
 
-//     db.collection('post').insertOne({ _id : 총게시물갯수 + 1, 제목 : 요청.body.title, 날짜 : 요청.body.date }, function (에러, 결과) {      // c16
-
-//       db.collection('counter').updateOne({name:'게시물갯수'},{ $inc: {totalPost:1} },function(에러, 결과){    // c17 updateOne(.), inc 연산자
-
-//         if(에러){return console.log(에러)}
-//         응답.send('전송완료');
-//       })
-//     })
-//   })
-// })
 
 /* 
 🦄🦄 선생님 18 AJAX로 DELETE 요청하기 1, $.ajax(.), app.delete('delete',(.)={})
