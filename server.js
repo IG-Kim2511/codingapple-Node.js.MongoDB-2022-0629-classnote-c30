@@ -77,10 +77,10 @@ MongoClient.connect(uri, function(에러, p_client){
   // database설정 :  db() : .... 'ig_database' 에 연결
   db = p_client.db('ig_database');
 
-  // collecton설정 : ....'ig_collection' 에 연결
+  // collecton설정 : ....'c30_ig_collection' 에 연결
   // .insertOne함수 : .insertOne(저장할 데이터, 그 이후 실행할 콜백함수)  👉 mongoDB에 가면 저장된 데이터 확인됨
 
-  db.collection('ig_collection').insertOne({제목: "first", 날짜:1, 이름:'John2', _id:10}, function (에러, 결과) {
+  db.collection('c30_ig_collection').insertOne({제목: "first", 날짜:1, 이름:'John2', _id:10}, function (에러, 결과) {
     console.log('c30 insertOne success')    
   });
 
@@ -153,6 +153,9 @@ MongoClient.connect(uri, function(에러, p_client){
             20-20) post()할 때 + collection('~~') 에 insertOne할때 : 
             updateOne() : collection('~~')에서 " name:게시물갯수"데이터를 가진 오브젝트 전체를 가져옴. 
             그안의 데이터 하나(ex: totalPost) 를 수정함 (ex: totalPost+1)
+
+            30) mongodb update operators : 
+            https://www.mongodb.com/docs/manual/reference/operator/update/
           */
 
         // updateOne
