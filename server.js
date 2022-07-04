@@ -61,7 +61,7 @@ console.log('🦄🦄c30')
 // 😎uri : iikim2522:dRT2GRSjF5PoHsam : 비밀번호 랜덤생성했을때 접속성공함 ,
 // https://cloud.mongodb.com/v2/62be0862fda87151be53eb94#setup/access
 // 비밀파일에 숨겨야함. 해킹될수있음, 연습때는 연습끝날때마다 비밀번호 새로 생성
-var uri = "mongodb+srv://iikim2522:Fv7kJuN3OQ4no8uO@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
+var uri = "mongodb+srv://iikim2522:eOUD99uqYb5IYsSB@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
 
 // var db
 var db;   //c30-4)
@@ -100,6 +100,13 @@ MongoClient.connect(uri, function(에러, p_client){
     4) find() : 모든 데이터 찾고싶을때
     findOne() : 원하는 데이터 1개만 찾고싶을때  
 
+    findOne() : 그 데이터가 있는 오브젝트를 찾아줌. 그 오브젝트 안의 데이터들을 수정할 예정
+
+    ~~collection(~)~~.findOne({~~{}~~},function(){
+      ~~~~ 수정할 코드~~~
+    })
+
+
     🍄6) /add로 post요청하면, 
     DB의 총게시물갯수 데이터 가져오셉
     
@@ -132,21 +139,45 @@ MongoClient.connect(uri, function(에러, p_client){
         //  _id:총게시물갯수 +1 
         db.collection('ig_collection').insertOne({ _id: p_db결과.totalPost +1 ,제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data}, function(){
           console.log('저장완료 c38-2')          
+          
+          // 🦄🦄 선생님 40 게시물마다 id넣기2 - id에 +1하기, updateOne(.), mongodb operator: inc
+          console.log('🦄🦄c40')  
+          /*
+            10) updateOne({},{},function(){}) : 하나의 데이터 수정
+            updateMany() : 한번에 많은 데이터 수정
+
+            20-10) post()할때, 
+            findOne() :  collection('~~')에서 name:'게시물갯수'데이터를 가지고있는 오브젝트 전체를 가져옴 (ex: collection(counter)의 오브젝트)
+            collection("~~")에 insertOne : collection("~~")에  그 db결과의 totalPost에 +1을 해서 _id만듬
+
+            20-20) post()할 때 + collection('~~') 에 insertOne할때 : 
+            updateOne() : collection('~~')에서 " name:게시물갯수"데이터를 가진 오브젝트 전체를 가져옴. 
+            그안의 데이터 하나(ex: totalPost) 를 수정함 (ex: totalPost+1)
+          */
+
+          // updateOne
+          db.collection('ig_counter').updateOne({name:'게시글갯수'},{$inc :{totalPost:1}},function(p_err,p_db) { 
+            if (p_err) { return console.log('err')  }           
+
+          })
+
+
+
         } )
       })
       
 
-      // ???? - 40강에서 코드 추가해야 완성됨....................🍚
+      
 
 
 
     });   
 
 
-  // c30-4) 서버띄우는 코드 여기로 옮기기      
-  app.listen(3000, function(){
-    console.log('c30 listening on 3000')
-  });
+      // c30-4) 서버띄우는 코드 여기로 옮기기      
+      app.listen(3000, function(){
+        console.log('c30 listening on 3000')
+      });
 
 
 
@@ -199,12 +230,12 @@ MongoClient.connect(uri, function(에러, p_client){
       app.get('/list',function(res,req){      //34-4)
 
           // // .find().toArray() 
-          db.collection('ig_collection').find().toArray(function(에러, 결과){   //34-2)
+          db.collection('ig_collection').find().toArray(function(p_err, p_db결과){   //34-2)
       
-          console.log(결과)
+          console.log(p_db결과)
       
-          // render() , list.ejs , ig_posts : 결과
-          req.render('list.ejs', { ig_posts : 결과 })     //34-4)  36-4)
+          // render() , list.ejs , ig_posts : p_db결과
+          req.render('list.ejs', { ig_posts : p_db결과 })     //34-4)  36-4)
           })
       });
 })
@@ -227,10 +258,7 @@ MongoClient.connect(uri, function(에러, p_client){
 //🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄
 // 여기서부터는 그냥 녹화하면서 대충 , 선생님이  정리한 내용 복붙함
 
-/*
-🦄🦄 선생님 38 게시물마다 번호를 달아 저장해야합니다. findOne(.),insertOne(.)
-🦄🦄 선생님 40 게시물마다 번호 달기2, updateOne(.), inc 연산자
- */
+
 console.log('🦄🦄🦄🦄c38')
 
 
