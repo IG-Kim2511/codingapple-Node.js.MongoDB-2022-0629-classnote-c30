@@ -135,7 +135,7 @@ MongoClient.connect(uri, function(에러, p_client){
       db.collection('ig_counter').findOne({name: '게시물갯수'},function(p_err,p_db결과) {
         console.log(`p_db결과.totalPost:`+p_db결과.totalPost)
         console.log(`p_db결과.name:`+p_db결과.name)
-
+        
         //  _id:총게시물갯수 +1 
         db.collection('ig_collection').insertOne({ _id: p_db결과.totalPost +1 ,제목 : req요청.body.ig_title, 날짜 : req요청.body.ig_data}, function(){
           console.log('저장완료 c38-2')          
@@ -157,7 +157,7 @@ MongoClient.connect(uri, function(에러, p_client){
 
           // updateOne
           db.collection('ig_counter').updateOne({name:'게시글갯수'},{$inc :{totalPost:1}},function(p_err,p_db) { 
-            if (p_err) { return console.log('err')  }           
+            if (p_err) { return console.log('err')  }          
 
           })
 
