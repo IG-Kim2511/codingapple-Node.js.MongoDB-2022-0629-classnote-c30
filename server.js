@@ -16,10 +16,6 @@ const MongoClient = require('mongodb').MongoClient;
 app.set('view engine', 'ejs');
 
 
-
-
-
-
 // 🦄🦄 terminal 명령어 정리 👉 codingapple-Node.js.MongoDB-2022-0629-classnote폴더...server.js
 
 
@@ -160,12 +156,18 @@ MongoClient.connect(uri, function(에러, p_client){
             updateOne() : collection('~~')에서 " name:게시물갯수"데이터를 가진 오브젝트 전체를 가져옴. 
             그안의 데이터 하나(ex: totalPost) 를 수정함 (ex: totalPost+1)
 
-            30) mongodb update operators : 
+            30) $inc : number data에 +, - 시킴
+            양수, 음수 둘다 가능함
+            +1 : +1 해줌
+            -1 : -1 해줌
+
+
+            30-2) mongodb update operators : 
             https://www.mongodb.com/docs/manual/reference/operator/update/
           */
 
           // updateOne, $inc
-          db.collection('ig_counter').updateOne({name:'게시물갯수'},{$inc :{totalPost:1}},function(p_err,p_db) { 
+          db.collection('ig_counter').updateOne({name:'게시물갯수'},{$inc :{totalPost:+1}},function(p_err,p_db) { 
             if (p_err) { return console.log('err')  }                  
 
           })
@@ -182,7 +184,7 @@ MongoClient.connect(uri, function(에러, p_client){
 
 
 
-     // 🦄32-2. ejs문법 
+     // 🦄32-2. ejs문법  (list탭 확인)
      // 👉views/list.ejs 생성
      //    npm install ejs
 
