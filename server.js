@@ -166,9 +166,7 @@ MongoClient.connect(uri, function(에러, p_client){
 
           // updateOne, $inc
           db.collection('ig_counter').updateOne({name:'게시물갯수'},{$inc :{totalPost:1}},function(p_err,p_db) { 
-            if (p_err) { return console.log('err')  }          
-
-            
+            if (p_err) { return console.log('err')  }                  
 
           })
         })
