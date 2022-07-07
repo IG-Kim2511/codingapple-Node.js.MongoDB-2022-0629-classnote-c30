@@ -228,7 +228,7 @@ MongoClient.connect(uri, function(에러, p_client){
           (정확히 말하면 결과라는 데이터를 ig_posts 라는 이름으로 ejs 파일에 보내주세요~ 입니다)
       */
     
-      app.get('/list',function(res,req){      //34-4)
+      app.get('/list',function(req,res){      //34-4)
 
           // // .find().toArray() 
           db.collection('ig_collection').find().toArray(function(p_err, p_db결과){   //34-2)
@@ -236,7 +236,7 @@ MongoClient.connect(uri, function(에러, p_client){
             console.log(p_db결과)
         
             // render() , list.ejs , ig_posts : p_db결과
-            req.render('list.ejs', { ig_posts : p_db결과 })     //34-4)  36-4)
+            res.render('list.ejs', { ig_posts : p_db결과 })     //34-4)  36-4)
           })
       });
 })
