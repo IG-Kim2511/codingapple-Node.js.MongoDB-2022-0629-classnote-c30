@@ -73,9 +73,8 @@ MongoClient.connect(uri, function(에러, p_client){
   // database설정 :  db() : .... 'ig_database' 에 연결
   db = p_client.db('ig_database');
 
-  // collecton설정 : ....'c30_ig_collection' 에 연결
-  // .insertOne함수 : .insertOne(저장할 데이터, 그 이후 실행할 콜백함수)  👉 mongoDB에 가면 저장된 데이터 확인됨
-
+  // .collecton(~) : ....'~' 에 연결, collecton이름 여기에 작명하면, mongoDB에 자동으로 그 collecton 만들어짐
+  // .insertOne(~) : .insertOne(저장할 데이터, 그 이후 실행할 콜백함수)  👉 mongoDB에 가면 저장된 데이터 확인됨
   db.collection('c30_ig_collection').insertOne({제목: "first", 날짜:1, 이름:'John2', _id:10}, function (에러, 결과) {
     console.log('c30 insertOne success')    
   });
