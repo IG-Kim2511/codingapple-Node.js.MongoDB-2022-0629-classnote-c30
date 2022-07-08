@@ -95,8 +95,8 @@ MongoClient.connect(uri, function(에러, p_client){
     4) find() : 모든 데이터 찾고싶을때
     findOne() : 원하는 데이터 1개만 찾고싶을때  
 
-    findOne() : 그 데이터가 있는 오브젝트를 찾아줌. 그 오브젝트 안의 데이터들을 수정할 예정
-
+    findOne({~},function(){}) : {~}가 있는 오브젝트 뭉치를 찾아줌, 그 오브젝트 안의 데이터들을 수정할 예정
+    
     ~~collection(~)~~.findOne({~~{}~~},function(){
       ~~~~ 수정할 코드~~~
     })
