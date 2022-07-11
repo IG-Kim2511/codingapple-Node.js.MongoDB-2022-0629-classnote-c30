@@ -1,18 +1,18 @@
 
 /* 🍀 Server.js 상단 코드 */
 
-// c18
+// c18 express
 const express = require('express')
 const app = express()
 
-// c24-5)
+// c24-5) bodyParser
 const bodyParser= require('body-parser')
 app.use(bodyParser.urlencoded({extended: true})) 
 
-// c30)
+// c30) mongoDB
 const MongoClient = require('mongodb').MongoClient;
 
-// c32) 
+// c32) ejs
 app.set('view engine', 'ejs');
 
  
@@ -55,6 +55,7 @@ console.log('🦄🦄c30')
 //👉상단배치 const MongoClient = require('mongodb').MongoClient;
 
 // 😎uri : iikim2522:dRT2GRSjF5PoHsam : 비밀번호 랜덤생성했을때 접속성공함 ,
+//🍉 home 👉 Projects 👉 Security 👉Quickstart에서 username edit선택하고 auto generate password 클릭 (가끔 quick start안나올때 있는데, home에서부터 넘어오면 생김 )
 // https://cloud.mongodb.com/v2/62be0862fda87151be53eb94#setup/access
 // 비밀파일에 숨겨야함. 해킹될수있음, 연습때는 연습끝날때마다 비밀번호 새로 생성
 var uri = "mongodb+srv://iikim2522:wgx494SOBiyxpkFC@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
