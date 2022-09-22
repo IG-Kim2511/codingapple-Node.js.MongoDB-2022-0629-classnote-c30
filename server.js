@@ -58,7 +58,8 @@ console.log('🦄🦄c30')
 //🍉 home 👉 Projects 👉 Security 👉Quickstart에서 username edit선택하고 auto generate password 클릭 (가끔 quick start안나올때 있는데, home에서부터 넘어오면 생김 )
 // https://cloud.mongodb.com/v2/62be0862fda87151be53eb94#setup/access
 // 비밀파일에 숨겨야함. 해킹될수있음, 연습때는 연습끝날때마다 비밀번호 새로 생성
-var uri = "mongodb+srv://iikim2522:wgx494SOBiyxpkFC@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
+var uri = "mongodb+srv://iikim2522:ElrMBKIr97MGy7h9>@cluster0.qqllo.mongodb.net/?retryWrites=true&w=majority";
+
 
 // var db
 var db;   //c30-4)
@@ -211,7 +212,7 @@ MongoClient.connect(uri, function(에러, p_client){
       /* list.ejs 파일안 코딩
             <!-- 🦄c34 반복문     <%  %>   
                 for (let i = 0; i < array.length; i++) {
-                  const element = array[i];              
+                    array[i];              
                 }        
             -->
             
@@ -240,6 +241,12 @@ MongoClient.connect(uri, function(에러, p_client){
             res.render('list.ejs', { ig_posts : p_db결과 })     //34-4)  36-4)
           })
       });
+
+
+
+
+    // 🍀cliend.close()있으면 post가 안됨..왜인지는 모름
+    // client.close();
 })
 
 // // 🌊 실습코드 끝------

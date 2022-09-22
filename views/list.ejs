@@ -74,24 +74,17 @@
 
         <br><br><br><br><br><br>
         <h2>🌊c34 반복문</h2>
-        <!-- 🦄c34 반복문     <%  %>   
-            for (let i = 0; i < array.length; i++) {
-              const element = array[i];              
-            }        
-        -->
-        
-        <%    for (let i = 0; i < ig_posts.length; i++) {   %>  
-          <h4>할일 제목 : <%= ig_posts[i].제목 %></h4>
-          <p>할일 마감날짜 : <%= ig_posts[i].날짜 %></p>          
-        <%  }  %>  
-
-
-    
-  
-        <%  %>
-
-
-
+          <!-- 🦄c34 반복문     <%  %>   
+              for (let i = 0; i < array.length; i++) {
+                 array[i];              
+              }        
+          -->
+          
+          <%    for (let i = 0; i < ig_posts.length; i++) {   %>  
+            <h2>할일 제목 : <%= ig_posts[i].title %></h2>
+            <p>할일 마감날짜 : <%= ig_posts[i].date %></p>          
+          <%  }  %>  
+     
 
     </section>
   </body>
